@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-//import { createNewPostService, deletePostService, editPostService, getAllPostsService, getSinglePostService } from "../../services/auth/postsServices";
 import { createNewPostService } from "../../services/posts/postsServices";
+
 import { deletePostService } from "../../services/posts/postsServices";
 import { editPostService } from "../../services/posts/postsServices";
 import { getAllPostsService } from "../../services/posts/postsServices";
 import { getSinglePostService } from "../../services/posts/postsServices";
-
 const initialState = {
   allPosts: [],
   singlePost: {},

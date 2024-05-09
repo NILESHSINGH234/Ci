@@ -10,7 +10,7 @@ import {
 import { CommentModal } from "../Modals/CommentModal";
 import { OptionsModal } from "../Modals/OptionsModal";
 import ReactTimeAgo from "react-time-ago";
-import { convertDateIntoInteger } from "../../utils";
+import { convertDateIntoInteger } from "../../utils/convertDateIntoInteger";
 export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   
