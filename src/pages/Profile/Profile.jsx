@@ -3,7 +3,7 @@ import React from "react";
 import { BottomNavigation } from "../../components/BottomNavigation/BottomNavigation";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
-import { Post } from "../../components/Post/Post";
+
 import { Widgets } from "../../components/Widgets/Widgets";
 export const Profile = () => {
   return (
@@ -17,12 +17,7 @@ export const Profile = () => {
           Profile
         </div>
         <ProfileCard />
-        <div className="pb-72">
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-        </div>
+       
       </div>
       <Widgets />
       <BottomNavigation />
