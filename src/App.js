@@ -6,7 +6,7 @@ import { Profile } from "./pages/Profile/Profile";
 import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
 import { Home } from "./pages/Home/Home";
-import { ToasterWrapper } from "./utils";
+import { ToasterWrapper } from "./utils/ToasterWrapper";
 function App() {
   return (
     <div className="App">
