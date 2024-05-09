@@ -2,8 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { loginService } from "../../services/auth/loginService";
-import { signupService } from "../../services/auth/signupService";
+import { loginService } from "../../services/loginService";
+import { signupService } from "../../services/signupService";
+
 
 const initialState = {
   token: JSON.parse(localStorage.getItem("token")) || "",

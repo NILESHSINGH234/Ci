@@ -1,12 +1,12 @@
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import logo from "./logo.png";
-import { Home } from "./pages/Home/Home";
 import { Profile } from "./pages/Profile/Profile";
 import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
 import { Home } from "./pages/Home/Home";
 import { ToasterWrapper } from "./utils/ToasterWrapper";
+import { SinglePost } from "./pages/SinglePost/SinglePost";
 function App() {
   return (
     <div className="App">
