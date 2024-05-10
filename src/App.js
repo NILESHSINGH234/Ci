@@ -11,6 +11,7 @@ import { ToasterWrapper } from "./utils/ToasterWrapper";
 import { SinglePost } from "./pages/SinglePost/SinglePost";
 import { Explore } from "./pages/Explore/Explore";
 import { PrivateRoute } from "./routes/PrivateRoutes";
+import Bookmarks from "./pages/Bookmarks/Bookmarks";
 function App() {
   const { token } = useSelector(state => state.auth);
   return (
@@ -20,8 +21,9 @@ function App() {
      <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
           <Route path="/post/:postId" element={<SinglePost />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:username" element={<Profile />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/bookmarks" element={<Bookmarks></Bookmarks>} />
         </Route>
         {!token && <Route path="/signup" element={<Signup />} />}
         {!token && <Route path="/login" element={<Login />} />}

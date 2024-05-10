@@ -7,6 +7,7 @@ import { getAllPosts } from "../../features/posts/postSlice";
 import { getAllBookmarkPosts } from "../../features/posts/postSlice";
 import { getSortedPosts } from "../../helpers/getSortedPosts";
 import { getUserFeedPosts } from "../../helpers/getUserFeedPosts";
+import { getBookmarkPosts } from "../../helpers/getBookmarkPosts";
 
 
 export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {

@@ -20,6 +20,7 @@ import { likePost } from "../../features/posts/postSlice";
 import { dislikePost } from "../../features/posts/postSlice";
 import { bookmarkPost } from "../../features/posts/postSlice";
 import { removeBookmarkPost } from "../../features/posts/postSlice";
+import { checkIfPostAlreadyLiked } from "../../helpers/checkIfPostAlreadyLiked";
 export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   

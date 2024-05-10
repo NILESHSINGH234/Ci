@@ -94,8 +94,8 @@ export const CommentModal = ({ isOpen, setIsOpen, postData }) => {
                   </div>
                   <div className="mt-7 flex space-x-3 w-full">
                     <img
-                      src="https://i.pravatar.cc/300?img=1"
-                      alt=""
+                      src={userInfo.avatar}
+                      alt="avatar"
                       className="h-12 w-12 rounded-full"
                     />
                     <div className="flex-grow mt-2">
