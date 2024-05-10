@@ -17,6 +17,8 @@ import { setPostModalOpen } from "../../features/posts/postSlice";
 
 export const Sidebar = () => {
     const { isPostModalOpen } = useSelector(state => state.posts);
+    const { userInfo } = useSelector(state => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -45,7 +47,11 @@ export const Sidebar = () => {
           <SidebarLink path="/" text="Home" Icon={HomeIcon} />
           <SidebarLink path="/explore" text="Explore" Icon={HashtagIcon} />
           <SidebarLink path="/bookmarks" text="Bookmarks" Icon={BookmarkIcon} />
-          <SidebarLink path="/profile" text="Profile" Icon={UserIcon} />
+          <SidebarLink
+            path={`/profile/${userInfo.username}`}
+            text="Profile"
+            Icon={UserIcon}
+          />
         </div>
         <button
           className="hidden xl:inline ml-auto mt-2.5 bg-[#1A8CD8] text-white rounded-full w-56 h-[52px] text-lg font-bold 
