@@ -27,11 +27,13 @@ export const Input = ({ editPostData }) => {
     dispatch(createNewPost({ postData, token }));
     setPostContent({ content: "" });
     dispatch(setPostModalOpen(false));
-    const currentUser = allUsers?.find(
-      user => user.username === userInfo.username
-    );
+
+   
   
   };
+  const currentUser = allUsers?.find(
+    user => user.username === userInfo.username
+  );
 
   const editPostHandler = () => {
     console.log("handler");
