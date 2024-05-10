@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import {
   BookmarkIcon,
@@ -21,12 +21,14 @@ import { dislikePost } from "../../features/posts/postSlice";
 import { bookmarkPost } from "../../features/posts/postSlice";
 import { removeBookmarkPost } from "../../features/posts/postSlice";
 import { checkIfPostAlreadyLiked } from "../../helpers/checkIfPostAlreadyLiked";
+import { Avatar } from "../Avatar/Avatar";
 export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const navigate = useNavigate();
   const { userInfo, token } = useSelector(state => state.auth);
   const { bookmarkPosts } = useSelector(state => state.posts);
+  const { allUsers } = useSelector(state => state.users);
   const dispatch = useDispatch();
   const {
     _id,
@@ -47,20 +49,33 @@ export const Post = ({ postData, singlePostPage }) => {
   const isPostAlreadyBookmarked = bookmarkPosts?.find(
     bookmarkPostId => bookmarkPostId === _id
   );
+
+  const currentUser = allUsers?.find(
+    user => user.username === postData.username
+  );
   return (
     <>
-      <div className="p-3 flex cursor-pointer border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
+     <div className="p-3 flex border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
        
-      <div className="w-12">
-          <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full" />
+      <div className="w-12 min-h-fit">
+          <Link to={`/profile/${username}`}>
+          <Avatar
+              avatarImg={currentUser.avatar}
+              firstname={firstName}
+              lastname={lastName}
+            />
+          </Link>
+         
         </div>
         <div className="flex flex-col space-y-2 w-full ml-4">
           <div className="flex justify-between">
             <div className="text-[#6e767d]">
               <div className="inline-block group">
-                <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
-                {firstName} {lastName}
-                </h4>
+              <Link to={`/profile/${username}`}>
+                  <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
+                    {firstName} {lastName}
+                  </h4>
+                </Link>
                 <span className="text-sm sm:text-[15px] ml-1.5">
                 @{username}
                 </span>

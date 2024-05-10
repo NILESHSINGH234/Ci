@@ -134,7 +134,9 @@ const userSlice = createSlice({
           state.userPostsError = payload.errors;
         })
         .addCase(editUserProfile.fulfilled, (state, { payload }) => {
-          state.singleUser = payload;
+            state.allUsers.map(user =>
+                user.username === payload.username ? payload : user
+              );
           toast.success("Profile edited successfully!");
         })
         .addCase(editUserProfile.rejected, (state, { payload }) => {

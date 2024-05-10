@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react";
 import { CameraIcon, XIcon } from "@heroicons/react/outline";
 import { editUserProfile } from "../../features/users/userSlice";
+import { getAllUsers } from "../../features/users/userSlice";
 export const EditProfileModal = ({
   isEditModalOpen,
   setIsEditModalOpen,
@@ -36,6 +37,7 @@ export const EditProfileModal = ({
               token,
             })
           );
+          dispatch(getAllUsers());
         }
       };
     } else {

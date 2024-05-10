@@ -5,6 +5,7 @@ import { EditProfileModal } from "../Modals/EditProfileModal";
 import { followUser } from "../../features/users/userSlice";
 import { unfollowUser } from "../../features/users/userSlice";
 import { getAllPosts } from "../../features/posts/postSlice";
+import { Avatar } from "../Avatar/Avatar";
 export const ProfileCard = ({ userDetails }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const {
@@ -17,7 +18,7 @@ export const ProfileCard = ({ userDetails }) => {
     portfolio,
     followers,
     following,
-  } = userDetails;
+  } = userDetails ?? "";
 
   const { userInfo, token } = useSelector(state => state.auth);
   const dispatch = useDispatch();
