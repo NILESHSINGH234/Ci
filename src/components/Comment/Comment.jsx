@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/outline";
 import { convertDateIntoInteger } from "../../utils/convertDateIntoInteger";
 import { downvoteComment, upvoteComment } from "../../features/posts/postSlice";
-
+import {TrashIcon} from "@heroicons/react/outline";
 import { Avatar } from "../Avatar/Avatar";
 import { Link } from "react-router-dom";
-
+import { deleteComment } from "../../features/posts/postSlice";
 export const Comment = ({ commentData, postId }) => {
   const { _id, username, firstName, lastName, avatar, votes, text, createdAt } =
     commentData;

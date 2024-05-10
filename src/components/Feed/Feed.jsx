@@ -8,12 +8,11 @@ import { FilterModal } from "../Modals/FilterModal";///////////////
 import { getAllUsers } from "../../features/users/userSlice";
 import { getAllPosts } from "../../features/posts/postSlice";
 import { getAllBookmarkPosts } from "../../features/posts/postSlice";
-import { getSortedPosts } from "../../helpers/getSortedPosts";
 import { getUserFeedPosts } from "../../helpers/getUserFeedPosts";
 import { getBookmarkPosts } from "../../helpers/getBookmarkPosts";
 
 
-export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
+export const Feed = ({ headerTitle, userFeed }) => {
   const { allPosts, bookmarkPosts, filterText, postStatus } = useSelector(
     state => state.posts
   );
@@ -32,11 +31,11 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
   );
 
   const userFeedPosts = getUserFeedPosts(allPosts, currentUser, filterText);
-  const exploreFeedPosts = getSortedPosts(allPosts);
+ 
   const bookmarkFeedPosts = getBookmarkPosts(allPosts, bookmarkPosts);
 
   return (
-    <div className="text-white flex-grow border-l border-r border-gray-700 max-w-[600px] sm:ml-[72px] xl:ml-[340px]">
+    <div className="text-white flex-grow border-l border-r border-gray-700 md:max-w-[600px] sm:ml-[72px] xl:ml-[340px]">
       <div className="text-[#d9d9d9] flex items-center sm:justify-between py-2 px-4 sticky top-0 z-50 bg-[rgba(21, 32, 43, 0.75)] backdrop-blur-md backdrop-brightness-100">
         <h2 className="text-lg sm:text-xl font-bold">{headerTitle}</h2>
         <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">
@@ -62,20 +61,12 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
         ) : (
           <div className="pb-72">
             {userFeed ? (
-              userFeedPosts?.map((post, id) => {
-                return (
-                  <div key={id}>
-                    <Post postData={post} />
-                  </div>
-                );
-              })
-            ) : bookmarkPage ? (
-              bookmarkFeedPosts.length === 0 ? (
-                <div className="flex min-h-screen items-center justify-center text-gray-400">
-                  No Bookmark Posts.
+              userFeedPosts.length === 0 ? (
+                <div className="flex min-h-[70vh] items-center justify-center text-gray-400">
+                  Follow people to see their posts.
                 </div>
               ) : (
-                bookmarkFeedPosts?.map((post, id) => {
+                userFeedPosts?.map((post, id) => {
                   return (
                     <div key={id}>
                       <Post postData={post} />
@@ -83,8 +74,12 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
                   );
                 })
               )
+            ) : bookmarkFeedPosts.length === 0 ? (
+              <div className="flex min-h-screen items-center justify-center text-gray-400">
+                No Bookmark Posts.
+              </div>
             ) : (
-              exploreFeedPosts?.map((post, id) => {
+              bookmarkFeedPosts?.map((post, id) => {
                 return (
                   <div key={id}>
                     <Post postData={post} />

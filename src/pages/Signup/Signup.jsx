@@ -118,7 +118,7 @@ export const Signup = () => {
             </label>
             <button
               type="submit"
-              className="w-full bg-[#151515] hover:bg-opacity-95 text-white rounded-full py-2"
+              className="w-full bg-colorgray-800 hover:bg-opacity-95 text-white rounded-full py-2"
               onClick={submitSignupFormData}
             >
               Sign up
@@ -128,7 +128,7 @@ export const Signup = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-[#1d9bf0] hover:underline cursor-pointer"
+              className="text-colorblue-100 hover:underline cursor-pointer"
             >
               Sign in
             </Link>

@@ -214,23 +214,26 @@ const postSlice = createSlice({
           state.postStatus = "loading";
         })
         .addCase(getAllPosts.fulfilled, (state, { payload }) => {
-          state.postStatus = "success";
+          
           state.allPosts = payload;
+          state.postStatus = "success";
         })
         .addCase(getAllPosts.rejected, (state, { payload }) => {
-          state.postStatus = "failed";
           state.postError = payload.errors;
+          state.postStatus = "failed";
         })
         .addCase(getSinglePost.pending, state => {
           state.singlePostStatus = "loading";
         })
         .addCase(getSinglePost.fulfilled, (state, { payload }) => {
-          state.singlePostStatus = "success";
+         
           state.singlePost = payload;
+          state.singlePostStatus = "success";
         })
         .addCase(getSinglePost.rejected, (state, { payload }) => {
-          state.singlePostStatus = "failed";
+        
           state.postError = payload.errors;
+          state.singlePostStatus = "failed";
         })
         .addCase(createNewPost.fulfilled, (state, { payload }) => {
           state.allPosts = payload;

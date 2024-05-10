@@ -25,8 +25,8 @@ export const Widgets = () => {
     )
     ?.filter(user => user.username !== userInfo?.username);
   return (
-    <div className="hidden lg:inline ml-8 xl:w-[450px] py-1 space-y-5">
-      <div className="sticky top-0 py-1.5 z-50 w-11/12 xl:w-9/12 bg-[#151F2B]">
+    <div className="hidden lg:inline ml-8 lg:w-[450px] py-1 space-y-5">
+      <div className="sticky top-0 py-1.5 z-50 w-11/12 xl:w-9/12 bg-background">
       {/*  <div className="flex items-center bg-[#273340] p-3 rounded-full relative">
           <SearchIcon className="text-gray-500 h-5 z-50" />
           <input
@@ -35,7 +35,7 @@ export const Widgets = () => {
             placeholder="Search Twitter"
           />
   </div>*/}
-        <div className="text-[#d9d9d9] mt-5 space-y-1 bg-[#1E2732] pt-3 rounded-xl overflow-hidden">
+       <div className="text-colorgray-100 mt-5 space-y-1 bg-colorgray-600 pt-3 rounded-xl overflow-hidden">
           <h4 className="font-bold text-xl px-4 pb-2">Who to follow</h4>
           {suggestions?.length === 0 ? (
             <div className="text-gray-400 px-4 py-3">
