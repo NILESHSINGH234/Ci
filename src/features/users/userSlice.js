@@ -1,14 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import {
-  editUserProfileService,
-  followUserService,
-  getAllUsersService,
-  getPostByUsernameService,
-  getSingleUserService,
-  unfollowUserService,
-} from "../../services";
 
+import { editUserProfileService } from "../../services/users/usersServices";
+import { followUserService } from "../../services/users/usersServices";
+import { getAllUsersService } from "../../services/users/usersServices";
+import { getPostByUsernameService } from "../../services/posts/postsServices";
+import { getSingleUserService } from "../../services/users/usersServices";
+import { unfollowUserService } from "../../services/users/usersServices";
 const initialState = {
   allUsers: [],
   singleUser: {},
@@ -92,88 +90,89 @@ export const unfollowUser = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: "users",
-  initialState,
-  reducers: {
-    resetUserProfile: state => {
-      state.singleUser = {};
-      state.userPosts = [];
+    name: "users",
+    initialState,
+    reducers: {
+      resetUserProfile: state => {
+        state.singleUser = {};
+        state.userPosts = [];
+      },
     },
-  },
-  extraReducers: {
-    [getAllUsers.pending]: state => {
-      state.userStatus = "loading";
+    extraReducers: builder => {
+      builder
+        .addCase(getAllUsers.pending, state => {
+          state.userStatus = "loading";
+        })
+        .addCase(getAllUsers.fulfilled, (state, { payload }) => {
+          state.userStatus = "success";
+          state.allUsers = payload;
+        })
+        .addCase(getAllUsers.rejected, (state, { payload }) => {
+          state.userStatus = "failed";
+          state.userError = payload.errors;
+        })
+        .addCase(getSingleUser.pending, state => {
+          state.singleUserStatus = "loading";
+        })
+        .addCase(getSingleUser.fulfilled, (state, { payload }) => {
+          state.singleUserStatus = "success";
+          state.singleUser = payload;
+        })
+        .addCase(getSingleUser.rejected, (state, { payload }) => {
+          state.singleUserStatus = "failed";
+          state.userError = payload.errors;
+        })
+        .addCase(getUserPostsByUsername.pending, state => {
+          state.userPostsStatus = "loading";
+        })
+        .addCase(getUserPostsByUsername.fulfilled, (state, { payload }) => {
+          state.userPostsStatus = "success";
+          state.userPosts = payload;
+        })
+        .addCase(getUserPostsByUsername.rejected, (state, { payload }) => {
+          state.userPostsStatus = "failed";
+          state.userPostsError = payload.errors;
+        })
+        .addCase(editUserProfile.fulfilled, (state, { payload }) => {
+          state.singleUser = payload;
+          toast.success("Profile edited successfully!");
+        })
+        .addCase(editUserProfile.rejected, (state, { payload }) => {
+          state.userError = payload.errors;
+          toast.error("Some error occurred. Try Again.");
+        })
+        .addCase(followUser.fulfilled, (state, { payload }) => {
+          const { user, followUser } = payload;
+          state.allUsers = state.allUsers.map(currUser =>
+            currUser.username === user.username ? user : currUser
+          );
+          state.allUsers = state.allUsers.map(currUser =>
+            currUser.username === followUser.username ? followUser : currUser
+          );
+          state.singleUser = payload.followUser;
+          toast.success("You followed!");
+        })
+        .addCase(followUser.rejected, (state, { payload }) => {
+          state.userError = payload.errors;
+          toast.error("Some error occurred. Try Again.");
+        })
+        .addCase(unfollowUser.fulfilled, (state, { payload }) => {
+          const { user, followUser } = payload;
+          state.allUsers = state.allUsers.map(currUser =>
+            currUser.username === user.username ? user : currUser
+          );
+          state.allUsers = state.allUsers.map(currUser =>
+            currUser.username === followUser.username ? followUser : currUser
+          );
+          state.singleUser = payload.followUser;
+          toast.success("You unfollowed!");
+        })
+        .addCase(unfollowUser.rejected, (state, { payload }) => {
+          state.userError = payload.errors;
+          toast.error("Some error occurred. Try Again.");
+        });
     },
-    [getAllUsers.fulfilled]: (state, { payload }) => {
-      state.userStatus = "success";
-      state.allUsers = payload;
-    },
-    [getAllUsers.rejected]: (state, { payload }) => {
-      state.userStatus = "failed";
-      state.userError = payload.errors;
-    },
-    [getSingleUser.pending]: state => {
-      state.singleUserStatus = "loading";
-    },
-    [getSingleUser.fulfilled]: (state, { payload }) => {
-      state.singleUserStatus = "success";
-      state.singleUser = payload;
-    },
-    [getSingleUser.rejected]: (state, { payload }) => {
-      state.singleUserStatus = "failed";
-      state.userError = payload.errors;
-    },
-    [getUserPostsByUsername.pending]: state => {
-      state.userPostsStatus = "loading";
-    },
-    [getUserPostsByUsername.fulfilled]: (state, { payload }) => {
-      state.userPostsStatus = "success";
-      state.userPosts = payload;
-    },
-    [getUserPostsByUsername.rejected]: (state, { payload }) => {
-      state.userPostsStatus = "failed";
-      state.userPostsError = payload.errors;
-    },
-    [editUserProfile.fulfilled]: (state, { payload }) => {
-      state.singleUser = payload;
-      toast.success("Profile edited successfully!");
-    },
-    [editUserProfile.rejected]: (state, { payload }) => {
-      state.userError = payload.errors;
-      toast.error("Some error occured. Try Again.");
-    },
-    [followUser.fulfilled]: (state, { payload }) => {
-      const { user, followUser } = payload;
-      state.allUsers = state.allUsers.map(currUser =>
-        currUser.username === user.username ? user : currUser
-      );
-      state.allUsers = state.allUsers.map(currUser =>
-        currUser.username === followUser.username ? followUser : currUser
-      );
-      state.singleUser = payload.followUser;
-      toast.success("You followed!");
-    },
-    [followUser.rejected]: (state, { payload }) => {
-      state.userError = payload.errors;
-      toast.error("Some error occured. Try Again.");
-    },
-    [unfollowUser.fulfilled]: (state, { payload }) => {
-      const { user, followUser } = payload;
-      state.allUsers = state.allUsers.map(currUser =>
-        currUser.username === user.username ? user : currUser
-      );
-      state.allUsers = state.allUsers.map(currUser =>
-        currUser.username === followUser.username ? followUser : currUser
-      );
-      state.singleUser = payload.followUser;
-      toast.success("You unfollowed!");
-    },
-    [unfollowUser.rejected]: (state, { payload }) => {
-      state.userError = payload.errors;
-      toast.error("Some error occured. Try Again.");
-    },
-  },
-});
-
+  });
+  
 export const { resetUserProfile } = userSlice.actions;
 export default userSlice.reducer;
